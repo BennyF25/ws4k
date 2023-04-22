@@ -235,8 +235,8 @@ var _BeepGain = null;
 var audBeep = null;
 
 var _IsNarrationPlaying = false;
-var _Utterance = false;
 var _CurrentUtterance = false;
+var _Utterance = false;
 var _CurrentUtteranceId = null;
 var _IsSpeaking = false;
 
@@ -1127,7 +1127,7 @@ var PopulateTideInfo = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasAlmanacTides[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var BackGroundImage = new Image();
     BackGroundImage.onload = function ()
@@ -1287,7 +1287,7 @@ var GetOutlook = function (WeatherParameters)
             cnvOutlookTemp.attr("height", "707"); // For Chrome.
         }
         cnvOutlookTemp = $("#" + cnvOutlookTempId);
-        contextTemp = cnvOutlookTemp[0].getContext("2d");
+        contextTemp = cnvOutlookTemp[0].getContext("2d", { willReadFrequently: true });
         contextTemp.drawImage(TempImage, 0, 0);
 
         var TempColor = GetOutlookColor(WeatherParameters, contextTemp);
@@ -1308,7 +1308,7 @@ var GetOutlook = function (WeatherParameters)
             cnvOutlookPrcp.attr("height", "707"); // For Chrome.
         }
         cnvOutlookPrcp = $("#" + cnvOutlookPrcpId);
-        contextPrcp = cnvOutlookPrcp[0].getContext("2d");
+        contextPrcp = cnvOutlookPrcp[0].getContext("2d", { willReadFrequently: true });
         contextPrcp.drawImage(PrcpImage, 0, 0);
 
         var PrcpColor = GetOutlookColor(WeatherParameters, contextPrcp);
@@ -1522,7 +1522,7 @@ var PopulateOutlook = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasOutlook[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var BackGroundImage = new Image();
     BackGroundImage.onload = function ()
@@ -2032,7 +2032,7 @@ var PopulateMarineForecast = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasMarineForecast[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var BackGroundImage = new Image();
     BackGroundImage.onload = function ()
@@ -2527,7 +2527,7 @@ var PopulateAirQuality = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasAirQuality[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var BackGroundImage = new Image();
     BackGroundImage.onload = function ()
@@ -6243,7 +6243,7 @@ var PopulateCurrentConditions = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasCurrentWeather[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var DrawCurrentConditions = function ()
     {
@@ -6623,6 +6623,9 @@ Date.prototype.getYYYYMMDDSlashed = function ()
     //return this.toISOString().split('T')[0].replaceAll("-", "/");
     return this.getFullYear() + "/" + (this.getMonth() + 1).pad(2) + "/" + this.getDate().pad(2);
 };
+Date.prototype.getUTCYYYYMMDDSlashed = function () {
+    return this.getUTCFullYear() + "/" + (this.getUTCMonth() + 1).pad(2) + "/" + this.getUTCDate().pad(2);
+};
 
 var PopulateExtendedForecast = function (WeatherParameters, ScreenIndex)
 {
@@ -6660,7 +6663,7 @@ var PopulateExtendedForecast = function (WeatherParameters, ScreenIndex)
             canvas = canvasExtendedForecast2[0];
             break;
     }
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var Counter = 0;
     //var MaxIcons = WeatherExtendedForecast.Day.length;
@@ -7407,7 +7410,7 @@ var PopulateLocalForecast = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasLocalForecast[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var BackGroundImage = new Image();
     BackGroundImage.onload = function ()
@@ -7604,7 +7607,7 @@ var UpdateLocalForecast = function (Offset)
     }
 
     var canvas = canvasLocalForecast[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
     var LocalForecastScreenTexts = _WeatherParameters.LocalForecastScreenTexts;
 
     switch (Offset)
@@ -7831,7 +7834,7 @@ var PopulateHazardConditions = function (WeatherParameters)
     {
         // Draw canvas
         var canvas = canvasHazards[0];
-        var context = canvas.getContext("2d");
+        var context = canvas.getContext("2d", { willReadFrequently: true });
 
         var BackGroundImage = new Image();
         BackGroundImage.onload = function ()
@@ -7952,7 +7955,7 @@ var PopulateHazardConditions = function (WeatherParameters)
             cnvHazardsScroll.attr("height", height); // For Chrome.
         }
         cnvHazardsScroll = $("#" + cnvHazardsScrollId);
-        context = cnvHazardsScroll[0].getContext("2d");
+        context = cnvHazardsScroll[0].getContext("2d", { willReadFrequently: true });
 
         DrawBox(context, "rgb(112, 35, 35)", 0, 0, 640, height);
 
@@ -7977,7 +7980,7 @@ var PopulateHazardConditions = function (WeatherParameters)
 var UpdateHazards = function (Offset)
 {
     var canvas = canvasHazards[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
     var cnvHazardsScroll = $("#cnvHazardsScroll");
 
     switch (Offset)
@@ -8752,7 +8755,7 @@ var PopulateAlmanacInfo = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasAlmanac[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var MoonImageCounter = 0;
 
@@ -9368,7 +9371,7 @@ var PopulateTravelCities = function (WeatherParameters)
     {
         // Draw canvas
         var canvas = canvasTravelForecast[0];
-        var context = canvas.getContext("2d");
+        var context = canvas.getContext("2d", { willReadFrequently: true });
 
         var BackGroundImage = new Image();
         BackGroundImage.onload = function ()
@@ -9458,7 +9461,7 @@ var PopulateTravelCities = function (WeatherParameters)
             //cnvTravelCitiesScroll.css("background",  "repeating-linear-gradient(#4040ff, #202080, #202080, #4040ff 20%)");
         }
         cnvTravelCitiesScroll = $("#" + cnvTravelCitiesScrollId);
-        context = cnvTravelCitiesScroll[0].getContext("2d");
+        context = cnvTravelCitiesScroll[0].getContext("2d", { willReadFrequently: true });
 
         DrawBox(context, "rgb(35, 50, 112)", 0, 0, 640, 1728);
 
@@ -9583,7 +9586,7 @@ var DrawHorizontalGradientSingle = function (context, x1, y1, x2, y2, color1, co
 var UpdateTravelCities = function (Offset)
 {
     var canvas = canvasTravelForecast[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
     var cnvTravelCitiesScroll = $("#cnvTravelCitiesScroll");
 
     switch (Offset)
@@ -9748,6 +9751,7 @@ var WeatherCurrentRegionalConditions = function ()
     this.SkipStationIds.push("KMIC"); // "Mnpls"
     this.SkipStationIds.push("KLVN"); // "Mnpls"
     this.SkipStationIds.push("KFCM"); // "Mnpls"
+    this.SkipStationIds.push("KC99"); // "Boulder Municipal Airport, CO""
 
 };
 //var WeatherCurrentRegionalCondition = function (MetarData)
@@ -9934,7 +9938,7 @@ var PopulateRegionalObservations = function (WeatherParameters)
 
     // Draw canvas
     var canvas = canvasLatestObservations[0];
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
 
     var BackGroundImage = new Image();
     BackGroundImage.onload = function ()
@@ -9959,6 +9963,8 @@ var PopulateRegionalObservations = function (WeatherParameters)
         DrawText(context, "Star4000 Small", "24pt", "#FFFFFF", 495, 105, "WIND", 2);
 
         var y = 140;
+
+        console.log(SortedArray);
 
         $(SortedArray).each(function ()
         {
@@ -10222,7 +10228,7 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
             BackGroundImage.onload = function ()
             {
                 var canvas = canvasRegionalMap[0];
-                var context = canvas.getContext("2d");
+                var context = canvas.getContext("2d", { willReadFrequently: true });
                 context.drawImage(BackGroundImage, 0, 0);
                 DrawHorizontalGradientSingle(context, 0, 30, 500, 90, _TopColor1, _TopColor2);
                 DrawTriangle(context, "rgb(28, 10, 87)", 500, 30, 450, 90, 500, 90);
@@ -10266,7 +10272,7 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
                         }
 
                         // City Name
-                        DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000", "20px", "#ffffff", x - 40, y - 15, RegionalCity.Name, 2);
+                        DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000", "20px", "#ffffff", x - 40, y - 15, RegionalCity.Name, 2);
 
                         // Temperature
                         if (IsNightTime == true)
@@ -10280,7 +10286,7 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
                             {
                                 MinimumTemperature = Math.round(weatherTravelForecast.MinimumTemperatureC).toString();
                             }
-                            DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000 Large Compressed", "28px", "#ffff00", x - (MinimumTemperature.length * 15), y + 20, MinimumTemperature, 2);
+                            DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000 Large Compressed", "28px", "#ffff00", x - (MinimumTemperature.length * 15), y + 20, MinimumTemperature, 2);
                         }
                         else
                         {
@@ -10293,8 +10299,8 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
                             {
                                 MaximumTemperature = Math.round(weatherTravelForecast.MaximumTemperatureC).toString();
                             }
-                            //DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000LCN", "28px", "#ffff00", x - 30, y + 20, MaximumTemperature, 2);
-                            DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000 Large Compressed", "28px", "#ffff00", x - (MaximumTemperature.length * 15), y + 20, MaximumTemperature, 2);
+                            //DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000LCN", "28px", "#ffff00", x - 30, y + 20, MaximumTemperature, 2);
+                            DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000 Large Compressed", "28px", "#ffff00", x - (MaximumTemperature.length * 15), y + 20, MaximumTemperature, 2);
                         }
 
                     });
@@ -10341,7 +10347,7 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
             BackGroundImage.onload = function ()
             {
                 var canvas = canvasRegionalObservations[0];
-                var context = canvas.getContext("2d");
+                var context = canvas.getContext("2d", { willReadFrequently: true });
                 context.drawImage(BackGroundImage, 0, 0);
                 DrawHorizontalGradientSingle(context, 0, 30, 500, 90, _TopColor1, _TopColor2);
                 DrawTriangle(context, "rgb(28, 10, 87)", 500, 30, 450, 90, 500, 90);
@@ -10376,7 +10382,7 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
                     }
 
                     // City Name
-                    DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000", "20px", "#ffffff", x - 40, y - 15, RegionalCity.Name, 2);
+                    DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000", "20px", "#ffffff", x - 40, y - 15, RegionalCity.Name, 2);
 
                     // Temperature
                     var Temperature;
@@ -10388,8 +10394,8 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
                     {
                         Temperature = Math.round(weatherCurrentConditions.TemperatureC).toString();
                     }
-                    //DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000LCN", "28px", "#ffff00", x - 30, y + 20, Temperature, 2);
-                    DrawText(cnvRegionalMap[0].getContext("2d"), "Star4000 Large Compressed", "28px", "#ffff00", x - (Temperature.length * 15), y + 20, Temperature, 2);
+                    //DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000LCN", "28px", "#ffff00", x - 30, y + 20, Temperature, 2);
+                    DrawText(cnvRegionalMap[0].getContext("2d", { willReadFrequently: true }), "Star4000 Large Compressed", "28px", "#ffff00", x - (Temperature.length * 15), y + 20, Temperature, 2);
                 });
 
                 if (DontLoadGifs == false)
@@ -10447,7 +10453,7 @@ var ShowRegionalMap = function (WeatherParameters, TomorrowForecast1, TomorrowFo
                 cnvRegionalMap[0].RelatedCanvas = canvasRegionalMap[0];
             }
             cnvRegionalMap = $("#" + cnvRegionalMapId);
-            context = cnvRegionalMap[0].getContext("2d");
+            context = cnvRegionalMap[0].getContext("2d", { willReadFrequently: true });
 
             OffsetX = 240;
             OffsetY = 117;
@@ -11288,7 +11294,7 @@ var ShowDopplerMap = function (WeatherParameters)
         cnvDopplerMap = $("#" + cnvDopplerMapId);
         cnvDopplerMap.attr("width", "640"); // For Chrome.
         cnvDopplerMap.attr("height", "367"); // For Chrome.
-        context = cnvDopplerMap[0].getContext("2d");
+        context = cnvDopplerMap[0].getContext("2d", { willReadFrequently: true });
 
         cnvRadarWorker = $("#" + cnvRadarWorkerId);
         OffsetX = 120;
@@ -11315,7 +11321,7 @@ var ShowDopplerMap = function (WeatherParameters)
             var SourceXY = GetXYFromLatitudeLongitudeDoppler(WeatherParameters.Latitude, WeatherParameters.Longitude, OffsetX, OffsetY);
         }
         cnvRadarWorker.css("display", "none");
-        contextWorker = cnvRadarWorker[0].getContext("2d");
+        contextWorker = cnvRadarWorker[0].getContext("2d", { willReadFrequently: true });
         SourceX = SourceXY.X;
         SourceY = SourceXY.Y;
 
@@ -11402,7 +11408,7 @@ var ShowDopplerMap = function (WeatherParameters)
                             $(RadarImages).each(function (Index, Value)
                             {
                                 var RadarImage = this;
-                                var RadarContext = RadarContexts[Index][0].getContext("2d");
+                                var RadarContext = RadarContexts[Index][0].getContext("2d", { willReadFrequently: true });
 
                                 contextWorker.clearRect(0, 0, contextWorker.canvas.width, contextWorker.canvas.height);
                                 //DrawBox(contextWorker, "rgb(255,255,255)", 0, 0, 640, 480);
@@ -11474,7 +11480,7 @@ var ShowDopplerMap = function (WeatherParameters)
 
                             //var ShowDopplarRadarImage = function ()
                             //{
-                            //    var RadarContext = RadarContexts[_DopplerRadarImageIndex][0].getContext("2d");
+                            //    var RadarContext = RadarContexts[_DopplerRadarImageIndex][0].getContext("2d", { willReadFrequently: true });
                             //    context.drawImage(img, SourceX, SourceY, (OffsetX * 2), (OffsetY * 2), 0, 0, 640, 367);
                             //    MergeDopplerRadarImage(context, RadarContext);
 
@@ -11500,7 +11506,7 @@ var ShowDopplerMap = function (WeatherParameters)
                                 OffsetX: OffsetX,
                             };
 
-                            var RadarContext = RadarContexts[0][0].getContext("2d");
+                            var RadarContext = RadarContexts[0][0].getContext("2d", { willReadFrequently: true });
                             context.drawImage(img, SourceX, SourceY, (OffsetX * 2), (OffsetY * 2), 0, 0, 640, 367);
                             MergeDopplerRadarImage(context, RadarContext);
 
@@ -11511,7 +11517,7 @@ var ShowDopplerMap = function (WeatherParameters)
                             BackGroundImage.onload = function ()
                             {
                                 var canvas = canvasLocalRadar[0];
-                                var context = canvas.getContext("2d");
+                                var context = canvas.getContext("2d", { willReadFrequently: true });
                                 context.drawImage(BackGroundImage, 0, 0);
 
                                 // Title
@@ -11637,7 +11643,7 @@ var ShowDopplerMap2 = function (WeatherParameters)
         cnvDopplerMap = $("#" + cnvDopplerMapId);
         cnvDopplerMap.attr("width", "640"); // For Chrome.
         cnvDopplerMap.attr("height", "367"); // For Chrome.
-        context = cnvDopplerMap[0].getContext("2d");
+        context = cnvDopplerMap[0].getContext("2d", { willReadFrequently: true });
 
         var FolderName;
 
@@ -11665,7 +11671,7 @@ var ShowDopplerMap2 = function (WeatherParameters)
             SourceXY = GetXYFromLatitudeLongitudeDoppler(WeatherParameters.Latitude, WeatherParameters.Longitude, OffsetX, OffsetY);
         }
         cnvRadarWorker.css("display", "none");
-        contextWorker = cnvRadarWorker[0].getContext("2d");
+        contextWorker = cnvRadarWorker[0].getContext("2d", { willReadFrequently: true });
         SourceX = SourceXY.X;
         SourceY = SourceXY.Y;
 
@@ -11676,12 +11682,10 @@ var ShowDopplerMap2 = function (WeatherParameters)
         //var Url = "https://radar.weather.gov/Conus/RadarImg/";
         //https://mesonet.agron.iastate.edu/archive/data/2020/11/26/GIS/uscomp/
         var Today = new Date();
-        var Tomorrow = Today.addDays(1);
         var Yesterday = Today.addDays(-1);
         var UrlLinks = [
-            "https://mesonet.agron.iastate.edu/archive/data/" + Yesterday.getYYYYMMDDSlashed() + "/GIS/" + FolderName + "/",
-            "https://mesonet.agron.iastate.edu/archive/data/" + Today.getYYYYMMDDSlashed() + "/GIS/" + FolderName + "/",
-            "https://mesonet.agron.iastate.edu/archive/data/" + Tomorrow.getYYYYMMDDSlashed() + "/GIS/" + FolderName + "/"
+            "https://mesonet.agron.iastate.edu/archive/data/" + Yesterday.getUTCYYYYMMDDSlashed() + "/GIS/" + FolderName + "/",
+            "https://mesonet.agron.iastate.edu/archive/data/" + Today.getUTCYYYYMMDDSlashed() + "/GIS/" + FolderName + "/",
         ];
 
         var TimesCount = 0;
@@ -11690,7 +11694,7 @@ var ShowDopplerMap2 = function (WeatherParameters)
         var RadarContexts = [];
 
         var UrlCounter = 0;
-        var UrlMax = 3;
+        var UrlMax = UrlLinks.length;
         var CheckFinishedRadarUrls = function ()
         {
             UrlCounter++;
@@ -11775,7 +11779,7 @@ var ShowDopplerMap2 = function (WeatherParameters)
                         $(RadarImages).each(function (Index, Value)
                         {
                             var RadarImage = this;
-                            var RadarContext = RadarContexts[Index][0].getContext("2d");
+                            var RadarContext = RadarContexts[Index][0].getContext("2d", { willReadFrequently: true });
 
                             contextWorker.clearRect(0, 0, contextWorker.canvas.width, contextWorker.canvas.height);
                             SmoothingEnabled(contextWorker, false);
@@ -11836,7 +11840,7 @@ var ShowDopplerMap2 = function (WeatherParameters)
                             OffsetX: OffsetX,
                         };
 
-                        var RadarContext = RadarContexts[0][0].getContext("2d");
+                        var RadarContext = RadarContexts[0][0].getContext("2d", { willReadFrequently: true });
                         context.drawImage(img, SourceX, SourceY, (OffsetX * 2), (OffsetY * 2), 0, 0, 640, 367);
                         MergeDopplerRadarImage(context, RadarContext);
 
@@ -11845,7 +11849,7 @@ var ShowDopplerMap2 = function (WeatherParameters)
                         BackGroundImage.onload = function ()
                         {
                             var canvas = canvasLocalRadar[0];
-                            var context = canvas.getContext("2d");
+                            var context = canvas.getContext("2d", { willReadFrequently: true });
                             context.drawImage(BackGroundImage, 0, 0);
 
                             // Title
@@ -11945,7 +11949,7 @@ var UpdateDopplarRadarImage = function (Offset)
     var OffsetY = _WeatherParameters.DopplerRadarInfo.OffsetY;
     var OffsetX = _WeatherParameters.DopplerRadarInfo.OffsetX;
 
-    var RadarContext = RadarContexts[_DopplerRadarImageIndex][0].getContext("2d");
+    var RadarContext = RadarContexts[_DopplerRadarImageIndex][0].getContext("2d", { willReadFrequently: true });
     context.drawImage(img, SourceX, SourceY, (OffsetX * 2), (OffsetY * 2), 0, 0, 640, 367);
     MergeDopplerRadarImage(context, RadarContext);
 
@@ -12448,7 +12452,7 @@ var Progress = function (e)
     }
 
     var BackGroundImage = new Image();
-    var context = canvas.getContext("2d");
+    var context = canvas.getContext("2d", { willReadFrequently: true });
     var gifProgress;
 
     this.DrawProgress = function ()
@@ -12482,15 +12486,15 @@ var Progress = function (e)
             DrawHorizontalGradientSingle(context, 0, 30, 500, 90, _TopColor1, _TopColor2);
             DrawTriangle(context, "rgb(28, 10, 87)", 500, 30, 450, 90, 500, 90);
 
-            //canvasBackGroundDateTime[0].getContext("2d").drawImage(canvas, 0, 0, 175, 60, 410, 30, 175, 60);
-            canvasBackGroundDateTime[0].getContext("2d").drawImage(canvas, 410, 30, 175, 60, 0, 0, 175, 60);
-            canvasBackGroundCurrentConditions[0].getContext("2d").drawImage(canvas, 0, 405, 640, 75, 0, 0, 640, 75);
+            //canvasBackGroundDateTime[0].getContext("2d", { willReadFrequently: true }).drawImage(canvas, 0, 0, 175, 60, 410, 30, 175, 60);
+            canvasBackGroundDateTime[0].getContext("2d", { willReadFrequently: true }).drawImage(canvas, 410, 30, 175, 60, 0, 0, 175, 60);
+            canvasBackGroundCurrentConditions[0].getContext("2d", { willReadFrequently: true }).drawImage(canvas, 0, 405, 640, 75, 0, 0, 640, 75);
 
             ////DrawText(context, "Star4000 Large", "16pt", "#ffff00", 170, 55, "Current", 3);
             ////DrawText(context, "Star4000 Large", "16pt", "#ffff00", 170, 80, "Conditions", 3);
             //DrawText(context, "Star4000 Large", "16pt", "#ffff00", 170, 55, "WeatherStar", 3);
             //DrawText(context, "Star4000 Large", "16pt", "#ffff00", 170, 80, "4000+", 3);
-            DrawTitleText(context, "WeatherStar", "4000+ 1.72");
+            DrawTitleText(context, "WeatherStar", "4000+ 1.74");
 
             // Draw a box for the progress.
             //context.fillStyle = "#000000";
@@ -12633,7 +12637,7 @@ var UpdateWeatherCanvas = function (WeatherParameters, Canvas)
     var OkToDrawScrollHazardText = false;
     var bottom = undefined;
 
-    var context = Canvas[0].getContext("2d");
+    var context = Canvas[0].getContext("2d", { willReadFrequently: true });
     
     if (_ScrollText != "")
     {
